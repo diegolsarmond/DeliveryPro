@@ -2,7 +2,7 @@
 // Definir fuso horário para Brasil
 date_default_timezone_set('America/Sao_Paulo');
 
-$servername = "localhost";
+$servername = "chatbot_mysql";
 $username = "deliverypro";
 $password = "C@104rm0nd1994";
 $dbname = "deliverypro";
