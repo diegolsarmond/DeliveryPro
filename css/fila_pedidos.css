@@ -1,0 +1,180 @@
+:root {
+  --primary-color: #dd2c2a;
+  --primary-hover: #ee7f1b;
+  --preparo-bg: var(--primary-color);
+  --finalizando-bg: var(--primary-hover);
+  --finalizados-bg: var(--navbar-color);
+}
+
+body {
+  background-color: #fcf3f3;
+  font-family: "Inter", sans-serif;
+  padding: 20px;
+  height: 100vh;
+  margin: 0;
+  overflow: hidden;
+}
+
+.logo-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.logo-container img {
+  max-width: 100%;
+  height: auto;
+}
+
+.container-fluid {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 20px;
+  padding: 20px;
+  height: calc(100vh - 40px);
+}
+
+.section-preparo,
+.section-finalizando,
+.section-finalizados {
+  border-radius: 15px;
+  padding: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.section-preparo {
+  background-color: var(--preparo-bg);
+  grid-column: 1 / 2;
+  opacity: 0.9;
+}
+
+.section-finalizando {
+  background-color: var(--finalizando-bg);
+  grid-column: 2 / 3;
+  opacity: 0.9;
+}
+
+.section-finalizados {
+  background-color: #198754;
+  grid-column: 2 / 3;
+  opacity: 0.9;
+}
+
+h2 {
+  color: #ffffff;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-align: left;
+  flex-shrink: 0;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 15px;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.pedido-card {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  text-align: center;
+}
+
+.pedido-label {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.pedido-numero {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+  line-height: 1;
+}
+
+.pedido-status,
+.pedido-itens,
+.pedido-mesa {
+  display: none;
+}
+
+@keyframes piscar {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.section-finalizando .pedido-card {
+  animation: none;
+}
+
+@keyframes concluido {
+  0% {
+    opacity: 1;
+    background-color: #fff;
+  }
+  50% {
+    opacity: 0.8;
+    background-color: #e8fff0;
+  }
+  100% {
+    opacity: 1;
+    background-color: #fff;
+  }
+}
+
+.section-finalizados .pedido-card {
+  animation: concluido 2s infinite;
+}
+
+/* Layout Grid */
+@media (min-width: 768px) {
+  .container-fluid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .logo-container {
+    grid-column: 1 / -1;
+  }
+
+  .section-preparo {
+    grid-row: 2 / span 2;
+  }
+
+  .section-finalizando,
+  .section-finalizados {
+    height: 100%;
+  }
+}
+
+/* Mensagens quando vazio */
+.row:empty::after {
+  content: "Nenhum pedido";
+  display: block;
+  text-align: center;
+  color: #ffffff;
+  font-size: 1.2rem;
+  padding: 20px;
+  width: 100%;
+}

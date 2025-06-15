@@ -1,0 +1,13 @@
+{
+    "logo_menu": "https://quantumtecnologia.com.br/wp-content/uploads/2025/03/Sem-titulo-2.png",
+    "login_logo_url": "https://quantumtecnologia.com.br/wp-content/uploads/2025/03/cropped-Sem-titulo-1-2048x491.png",
+    "dashboard_logo_url": "https://cdn.jsdelivr.net/gh/mathuzabr/img-packtypebot/logo-deliverypro.png",
+    "dashboard_logo_height": "120px",
+    "dashboard_info_text": "<div>\r\n<h1>Bem-vindo ao Quantum Delivery</h1>\r\n<p>Gestão e automação para pedidos e entregas!</p>\r\n</div>",
+    "navbar_color": "#dd2c2a",
+    "primary_color": "#dd2c2a",
+    "primary_hover_color": "#ee7f1b",
+    "footer_text": "Copyright © 2025 Quantum Tecnologia",
+    "site_title": "Quantum Tecnologia - Sistema de Gestão de Pedidos",
+    "favicon_url": "https://cdn.jsdelivr.net/gh/mathuzabr/img-packtypebot/favicon.png"
+}

@@ -1,0 +1,28 @@
+DirectoryIndex index.php
+Options -Indexes
+
+# Proteger arquivos sensíveis
+
+<Files "customizacao.json">
+Order Allow,Deny
+Deny from all
+</Files>
+
+# Configurações PHP
+<IfModule mod_php.c>
+    php_value display_errors Off
+    php_value log_errors On
+    php_value error_log "php_errors.log"
+    php_value max_execution_time 300
+    php_value max_input_time 300
+    php_value memory_limit 256M
+    php_value post_max_size 50M
+    php_value upload_max_filesize 50M
+</IfModule>
+
+# Forçar HTTPS
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
