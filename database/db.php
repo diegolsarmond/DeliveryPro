@@ -42,6 +42,10 @@ if (PHP_VERSION_ID < 80000) {
 
 
 
+function getConnection() {
+    global $conn;
+    return $conn;
+}
 
 
 function verificarPermissaoUsuario($conn, $user_id, $permissao = null) {
