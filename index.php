@@ -156,7 +156,7 @@ $config = json_decode(file_get_contents('customizacao.json'), true);
             <?php if ($canAccessPos): ?>
             <a href="#" class="menu-item" data-tab="pos">
                 <i class="fas fa-cash-register"></i>
-                <span>POS</span>
+                <span>Venda Balcão</span>
             </a>
             <?php endif; ?>   
             
@@ -217,7 +217,7 @@ $config = json_decode(file_get_contents('customizacao.json'), true);
                 </li>
                 <?php if ($canAccessPos): ?>
                 <li class="nav-item">
-                    <a class="nav-link" id="pos-tab" data-bs-toggle="tab" href="#pos-content" role="tab">POS</a>
+                    <a class="nav-link" id="pos-tab" data-bs-toggle="tab" href="#pos-content" role="tab">Venda Balcão</a>
                 </li>
                 <?php endif; ?>
 
