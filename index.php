@@ -213,8 +213,8 @@ $config = json_decode(file_get_contents('customizacao.json'), true);
     <!-- Main Content -->
     <div class="main-content" id="mainContent">
         <div class="tabs-container">
-           <!-- COMENTAR AQUI DEPOIS 
-           <ul class="nav nav-tabs" id="myTabs" role="tablist">
+           <!-- Navegação oculta para manter funcionalidade das abas -->
+           <ul class="nav nav-tabs d-none" id="myTabs" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard-content" role="tab">Dashboard</a>
                 </li>
@@ -253,7 +253,6 @@ $config = json_decode(file_get_contents('customizacao.json'), true);
                 </li>
                 <?php endif; ?>
             </ul>
-            -->
             <div class="tab-content" id="myTabsContent">
                 <!-- Dashboard Tab -->
                 <div class="tab-pane fade <?php echo $firstAvailableTab === 'dashboard' ? 'show active' : ''; ?>" id="dashboard-content" role="tabpanel">
