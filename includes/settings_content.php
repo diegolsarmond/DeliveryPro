@@ -117,56 +117,14 @@ $estabelecimento = $stmt->get_result()->fetch_assoc();
         <!-- Aba de Clientes -->
         <div class="tab-pane fade" id="clientes" role="tabpanel">
             <div class="row mb-4">
-                <!-- Formulário de Cliente -->
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="mb-0"><i class="fas fa-user-plus"></i> Cadastro de Cliente</h5>
-                        </div>
-                        <div class="card-body">
-                            <form id="clienteForm">
-                                <input type="hidden" name="id" id="clienteId">
-                                <div class="mb-3">
-                                    <label class="form-label">Nome</label>
-                                    <input type="text" class="form-control" name="nome" id="clienteNome" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Telefone</label>
-                                    <input type="text" class="form-control" name="telefone" id="clienteTelefone" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">CEP</label>
-                                    <input type="text" class="form-control" name="cep" id="clienteCep" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Rua</label>
-                                    <input type="text" class="form-control" name="rua" id="clienteRua" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Bairro</label>
-                                    <input type="text" class="form-control" name="bairro" id="clienteBairro" required>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Complemento</label>
-                                    <input type="text" class="form-control" name="complemento" id="clienteComplemento">
-                                </div>
-                                <div class="d-flex gap-2">
-                                    <button type="submit" class="btn btn-primary flex-grow-1">
-                                        <i class="fas fa-save"></i> Salvar Cliente
-                                    </button>
-                                    <button type="button" class="btn btn-secondary" onclick="limparFormulario()">
-                                        <i class="fas fa-eraser"></i> Limpar
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
                 <!-- Lista de Clientes -->
-                <div class="col-md-8">
+                <div class="col-12">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between align-items-center">
                             <h5 class="mb-0"><i class="fas fa-users"></i> Gerenciar Clientes</h5>
+                            <button class="btn btn-primary" onclick="abrirClienteModal()">
+                                <i class="fas fa-user-plus"></i> Cadastrar Cliente
+                            </button>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -222,6 +180,51 @@ $estabelecimento = $stmt->get_result()->fetch_assoc();
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Cliente -->
+        <div class="modal fade" id="clienteModal" tabindex="-1" aria-labelledby="clienteModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <form id="clienteForm">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="clienteModalLabel">Cadastro de Cliente</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="id" id="clienteId">
+                            <div class="mb-3">
+                                <label class="form-label">Nome</label>
+                                <input type="text" class="form-control" name="nome" id="clienteNome" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Telefone</label>
+                                <input type="text" class="form-control" name="telefone" id="clienteTelefone" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">CEP</label>
+                                <input type="text" class="form-control" name="cep" id="clienteCep" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Rua</label>
+                                <input type="text" class="form-control" name="rua" id="clienteRua" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Bairro</label>
+                                <input type="text" class="form-control" name="bairro" id="clienteBairro" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Complemento</label>
+                                <input type="text" class="form-control" name="complemento" id="clienteComplemento">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="limparFormulario()">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Salvar Cliente</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -1442,6 +1445,7 @@ function excluirProduto(id) {
 }
 
 // Gerenciamento das abas
+let clienteModal;
 document.addEventListener('DOMContentLoaded', function() {
     // Recuperar última aba ativa das configurações
     const lastSettingsTab = localStorage.getItem('settingsLastTab');
@@ -1478,6 +1482,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (settingsMenuItem) {
         settingsMenuItem.classList.add('active');
     }
+
+    clienteModal = new bootstrap.Modal(document.getElementById('clienteModal'));
+    document.getElementById('clienteModal').addEventListener('shown.bs.modal', () => {
+        aplicarMascaraTelefone(document.getElementById('clienteTelefone'));
+        document.getElementById('clienteTelefone').dispatchEvent(new Event('input'));
+        document.getElementById('clienteNome').focus();
+    });
 });
 
 function editarCliente(id) {
@@ -1494,20 +1505,7 @@ function editarCliente(id) {
                 document.getElementById('clienteRua').value = cliente.rua;
                 document.getElementById('clienteBairro').value = cliente.bairro;
                 document.getElementById('clienteComplemento').value = cliente.complemento || '';
-                
-                // Rolar até o formulário
-                document.getElementById('clienteForm').scrollIntoView({ behavior: 'smooth' });
-                
-                // Destacar o formulário brevemente
-                const formCard = document.getElementById('clienteForm').closest('.card');
-                formCard.style.transition = 'box-shadow 0.3s ease';
-                formCard.style.boxShadow = '0 0 15px rgba(var(--primary-color-rgb), 0.5)';
-                setTimeout(() => {
-                    formCard.style.boxShadow = '';
-                }, 1500);
-                
-                // Focar no primeiro campo
-                document.getElementById('clienteNome').focus();
+                clienteModal.show();
             } else {
                 throw new Error(data.message);
             }
@@ -1525,6 +1523,27 @@ function editarCliente(id) {
 function limparFormulario() {
     document.getElementById('clienteForm').reset();
     document.getElementById('clienteId').value = '';
+}
+
+function abrirClienteModal() {
+    limparFormulario();
+    clienteModal.show();
+}
+
+function aplicarMascaraTelefone(input) {
+    input.addEventListener('input', function(e) {
+        let v = input.value.replace(/\D/g, '').slice(0,11);
+        if (v.length >= 11) {
+            v = v.replace(/(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3');
+        } else if (v.length >= 10) {
+            v = v.replace(/(\d{2})(\d{4})(\d{4}).*/, '($1) $2-$3');
+        } else if (v.length > 2) {
+            v = v.replace(/(\d{2})(\d{0,5})/, '($1) $2');
+        } else {
+            v = v.replace(/(\d*)/, '($1');
+        }
+        input.value = v;
+    });
 }
 
 // Manipular envio do formulário
