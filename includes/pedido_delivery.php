@@ -5,13 +5,13 @@
     <!-- Formulário de Cadastro Manual -->
     <div class="settings-card mb-4">
         <h4><i class="fas fa-plus-circle"></i> Cadastro Manual de Pedido</h4>
-        <form id="cadastroPedidoForm" class="mt-3">
+        <form id="cadastroPedidoFormDelivery" class="mt-3">
             <!-- Seleção de Cliente -->
             <div class="row mb-3">
                 <div class="col-12">
                     <label class="form-label">Selecionar Cliente Cadastrado</label>
                     <div class="input-group">
-                        <select class="form-control" id="clienteSelect">
+                        <select class="form-control" id="clienteSelectDelivery">
                             <option value="">Novo cliente ou selecione um cliente...</option>
                             <?php
                             $stmt = $conn->prepare("SELECT * FROM clientes_delivery ORDER BY nome");
@@ -82,7 +82,7 @@
                 <div class="col-md-6 mb-3">
                     <label class="form-label">Itens do Pedido</label>
                     <div class="mb-2">
-                        <select class="form-control" id="selectProduto">
+                        <select class="form-control" id="selectProdutoDelivery">
                             <option value="">Selecione um produto...</option>
                             <?php
                             // Buscar produtos agrupados por categoria
@@ -117,7 +117,7 @@
                             <i class="fas fa-plus"></i> Adicionar Produto
                         </button>
                     </div>
-                    <div id="itensSelecionados" class="list-group">
+                    <div id="itensSelecionadosDelivery" class="list-group">
                         <!-- Itens selecionados serão adicionados aqui -->
                     </div>
                     <input type="hidden" name="itens" id="itensInput" required>
@@ -910,7 +910,7 @@ function excluirPedido(id) {
     });
 }
 
-document.getElementById('cadastroPedidoForm').addEventListener('submit', function(e) {
+document.getElementById('cadastroPedidoFormDelivery').addEventListener('submit', function(e) {
     e.preventDefault();
     
     const formData = new FormData(this);
@@ -959,7 +959,7 @@ let itensPedido = [];
 let totalPedido = 0;
 
 function adicionarProduto() {
-    const select = document.getElementById('selectProduto');
+    const select = document.getElementById('selectProdutoDelivery');
     const option = select.options[select.selectedIndex];
     
     if (select.value) {
@@ -984,7 +984,7 @@ function adicionarProduto() {
             </div>
         `;
         
-        document.getElementById('itensSelecionados').insertAdjacentHTML('beforeend', itemHtml);
+        document.getElementById('itensSelecionadosDelivery').insertAdjacentHTML('beforeend', itemHtml);
         select.value = '';
 
         // Atualizar subtotal e total
@@ -999,7 +999,7 @@ function removerProduto(index) {
 }
 
 function atualizarListaProdutos() {
-    const container = document.getElementById('itensSelecionados');
+    const container = document.getElementById('itensSelecionadosDelivery');
     const itensInput = document.getElementById('itensInput');
     
     container.innerHTML = '';
@@ -1031,7 +1031,7 @@ function atualizarTotal() {
 
 $(document).ready(function() {
     // Evento de mudança do select de clientes
-    $('#clienteSelect').on('change', function() {
+    $('#clienteSelectDelivery').on('change', function() {
         const selectedOption = $(this).find('option:selected');
         if (selectedOption.val()) {
             // Preencher campos usando getAttribute
@@ -1046,8 +1046,8 @@ $(document).ready(function() {
 });
 
 function limparDadosCliente() {
-    document.getElementById('clienteSelect').value = '';
-    document.getElementById('clienteSelect').dispatchEvent(new Event('change'));
+    document.getElementById('clienteSelectDelivery').value = '';
+    document.getElementById('clienteSelectDelivery').dispatchEvent(new Event('change'));
     document.getElementById('nomeCliente').value = '';
     document.getElementById('telefoneCliente').value = '';
     document.getElementById('cepCliente').value = '';
@@ -1248,7 +1248,7 @@ function atualizarTotais() {
     let subtotal = 0;
     
     // Calcular subtotal baseado nos itens selecionados
-    document.querySelectorAll('#itensSelecionados .list-group-item').forEach(item => {
+    document.querySelectorAll('#itensSelecionadosDelivery .list-group-item').forEach(item => {
         const produtoText = item.querySelector('div').childNodes[0].textContent.trim();
         const valor = parseFloat(produtoText.split('R$')[1].split('-')[0].trim().replace(',', '.'));
         const quantidade = parseInt(item.querySelector('input[type="number"]').value);
@@ -1267,7 +1267,7 @@ function atualizarTotais() {
 
     // Atualizar lista de itens para envio - CORREÇÃO AQUI
     const itensParaEnvio = [];
-    document.querySelectorAll('#itensSelecionados .list-group-item').forEach(item => {
+    document.querySelectorAll('#itensSelecionadosDelivery .list-group-item').forEach(item => {
         const produtoText = item.querySelector('div').childNodes[0].textContent.trim();
         const quantidade = parseInt(item.querySelector('input[type="number"]').value);
         // Extrair apenas o nome do produto (antes do "- R$")
