@@ -208,9 +208,7 @@ $entregas_finalizadas = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                                     <select class="form-select form-select-sm" onchange="atribuirEntregador(<?php echo $entrega['id']; ?>, this.value)">
                                         <option value="">Selecionar...</option>
                                         <?php foreach ($entregadores as $entregador): ?>
-                                            <?php if ($entregador['status'] == 'Ativo'): ?>
-                                                <option value="<?php echo $entregador['id']; ?>"><?php echo $entregador['nome']; ?></option>
-                                            <?php endif; ?>
+                                            <option value="<?php echo $entregador['id']; ?>"><?php echo $entregador['nome']; ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 <?php endif; ?>
