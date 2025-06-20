@@ -139,33 +139,37 @@ $config = json_decode(file_get_contents('customizacao.json'), true);
             </a>
             <?php endif; ?>
 
+            <?php if ($canAccessPos): ?>
+            <a href="#" class="menu-item" data-tab="pos">
+                <i class="fas fa-cash-register"></i>
+                <span>Venda Balcão</span>
+            </a>
+            <?php endif; ?> 
+
+            <?php if ($canAccessPos): ?>
+            <a href="#" class="menu-item" data-tab="pedidosdelivery">
+                <i class="fas fa-cash-register"></i>
+                <span>Venda Delivery</span>
+            </a>
+            <?php endif; ?>  
+
             <?php if ($canAccessPedidos): ?>
             <a href="#" class="menu-item" data-tab="pedido">
                 <i class="fas fa-shopping-cart"></i>
                 <span>Pedidos em Andamento</span>
             </a>            
             <?php endif; ?>
-                        <?php if ($canAccessPos): ?>
-            <a href="#" class="menu-item" data-tab="pos">
-                <i class="fas fa-cash-register"></i>
-                <span>Venda Balcão</span>
-            </a>
-            <?php endif; ?>   
+    
             <?php if ($canAccessMovimentacao): ?>
             <a href="#" class="menu-item" data-tab="movimentacao">
                 <i class="fas fa-truck"></i>
-                <span>Delivery</span>
+                <span>Enviar Pedido (Delivery)</span>
             </a>
             <?php endif; ?>
 
 
             
-             <?php if ($canAccessPos): ?>
-            <a href="#" class="menu-item" data-tab="delivery">
-                <i class="fas fa-cash-register"></i>
-                <span>Venda Delivery</span>
-            </a>
-            <?php endif; ?>   
+ 
 
             <?php if ($canAccessStats): ?>
             <a href="#" class="menu-item" data-tab="stats">
@@ -212,7 +216,8 @@ $config = json_decode(file_get_contents('customizacao.json'), true);
     <!-- Main Content -->
     <div class="main-content" id="mainContent">
         <div class="tabs-container">
-            <ul class="nav nav-tabs" id="myTabs" role="tablist">
+           <!-- COMENTAR AQUI DEPOIS -->
+           <ul class="nav nav-tabs" id="myTabs" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard-content" role="tab">Dashboard</a>
                 </li>
@@ -220,7 +225,7 @@ $config = json_decode(file_get_contents('customizacao.json'), true);
                     <a class="nav-link" id="pedido-tab" data-bs-toggle="tab" href="#pedido-content" role="tab">Pedidos em Andamento</a>
                 </li>                
                 <li class="nav-item">
-                    <a class="nav-link" id="movimentacao-tab" data-bs-toggle="tab" href="#movimentacao-content" role="tab">Delivery</a>
+                    <a class="nav-link" id="pedidosdelivery-tab" data-bs-toggle="tab" href="#pedidosdelivery-content" role="tab">Pedidos Delivery</a>
                 </li>
                 <?php if ($canAccessPos): ?>
                 <li class="nav-item">
@@ -271,6 +276,18 @@ $config = json_decode(file_get_contents('customizacao.json'), true);
                         </div>
                     <?php endif; ?>
                 </div>                
+
+                <!-- Pedidos Delivery -->
+                <div class="tab-pane fade <?php echo $firstAvailableTab === 'pedidos-delivery' ? 'show active' : ''; ?>" id="pedidosdelivery-content" role="tabpanel">
+                   <!-- <?php if ($canAccessPedidos): ?> -->
+                    <?php include 'includes/pedido_delivery.php'; ?>
+                    <?php else: ?>
+                        <div class="alert alert-warning m-4">
+                            <i class="fas fa-exclamation-triangle"></i> 
+                            Você não tem permissão para acessar esta área.
+                        </div>
+                    <?php endif; ?>
+                </div>        
 
                 <!-- Movimentação Tab -->
                 <div class="tab-pane fade <?php echo $firstAvailableTab === 'movimentacao' ? 'show active' : ''; ?>" id="movimentacao-content" role="tabpanel">
