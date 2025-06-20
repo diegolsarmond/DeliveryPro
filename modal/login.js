@@ -14,6 +14,9 @@ function togglePassword() {
 }
 
 $(document).ready(function () {
+  // Remove qualquer backdrop de modal que tenha ficado na página
+  $(".modal-backdrop").remove();
+  $("body").removeClass("modal-open");
   $("#loginForm").on("submit", function (e) {
     e.preventDefault();
 
