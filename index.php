@@ -224,6 +224,11 @@ $config = json_decode(file_get_contents('customizacao.json'), true);
                 <li class="nav-item">
                     <a class="nav-link" id="pedidosdelivery-tab" data-bs-toggle="tab" href="#pedidosdelivery-content" role="tab">Pedidos Delivery</a>
                 </li>
+                <?php if ($canAccessMovimentacao): ?>
+                <li class="nav-item">
+                    <a class="nav-link" id="movimentacao-tab" data-bs-toggle="tab" href="#movimentacao-content" role="tab">Enviar Pedido (Delivery)</a>
+                </li>
+                <?php endif; ?>
                 <?php if ($canAccessPos): ?>
                 <li class="nav-item">
                     <a class="nav-link" id="pos-tab" data-bs-toggle="tab" href="#pos-content" role="tab">Venda Balcão</a>
