@@ -109,7 +109,7 @@ $total_pronto = $stmt->get_result()->fetch_assoc()['total'];
                             $stmt->execute();
                             $total = $stmt->get_result()->fetch_assoc()['total'];
                             ?>
-                            <h3>R$ <?php echo number_format($total, 2, ',', '.'); ?></h3>
+                            <h3>R$ <?php echo number_format($total ?? 0, 2, ',', '.'); ?></h3>
                         </div>
                         <i class="fas fa-shopping-cart fa-2x opacity-50"></i>
                     </div>
