@@ -2,7 +2,7 @@
 return [
     'database' => [
         'driver' => 'mysql',
-        'host' => 'chatbot_mysql',
+        'host' => 'easypanel.quantumtecnologia.com.br:3015',
         'dbname' => 'deliverypro',
         'username' => 'deliverypro',
         'password' => 'C@104rm0nd1994',
