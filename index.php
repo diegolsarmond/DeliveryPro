@@ -142,24 +142,31 @@ $config = json_decode(file_get_contents('customizacao.json'), true);
             <?php if ($canAccessPedidos): ?>
             <a href="#" class="menu-item" data-tab="pedido">
                 <i class="fas fa-shopping-cart"></i>
-                <span>Pedidos</span>
+                <span>Pedidos em Andamento</span>
             </a>            
             <?php endif; ?>
-
-            <?php if ($canAccessMovimentacao): ?>
-            <a href="#" class="menu-item" data-tab="movimentacao">
-                <i class="fas fa-truck"></i>
-                <span>Movimentação</span>
-            </a>
-            <?php endif; ?>
-
-            <?php if ($canAccessPos): ?>
+                        <?php if ($canAccessPos): ?>
             <a href="#" class="menu-item" data-tab="pos">
                 <i class="fas fa-cash-register"></i>
                 <span>Venda Balcão</span>
             </a>
             <?php endif; ?>   
+            <?php if ($canAccessMovimentacao): ?>
+            <a href="#" class="menu-item" data-tab="movimentacao">
+                <i class="fas fa-truck"></i>
+                <span>Delivery</span>
+            </a>
+            <?php endif; ?>
+
+
             
+             <?php if ($canAccessPos): ?>
+            <a href="#" class="menu-item" data-tab="delivery">
+                <i class="fas fa-cash-register"></i>
+                <span>Venda Delivery</span>
+            </a>
+            <?php endif; ?>   
+
             <?php if ($canAccessStats): ?>
             <a href="#" class="menu-item" data-tab="stats">
                 <i class="fas fa-chart-bar"></i>
@@ -210,10 +217,10 @@ $config = json_decode(file_get_contents('customizacao.json'), true);
                     <a class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" href="#dashboard-content" role="tab">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="pedido-tab" data-bs-toggle="tab" href="#pedido-content" role="tab">Pedidos</a>
+                    <a class="nav-link" id="pedido-tab" data-bs-toggle="tab" href="#pedido-content" role="tab">Pedidos em Andamento</a>
                 </li>                
                 <li class="nav-item">
-                    <a class="nav-link" id="movimentacao-tab" data-bs-toggle="tab" href="#movimentacao-content" role="tab">Movimentação</a>
+                    <a class="nav-link" id="movimentacao-tab" data-bs-toggle="tab" href="#movimentacao-content" role="tab">Delivery</a>
                 </li>
                 <?php if ($canAccessPos): ?>
                 <li class="nav-item">

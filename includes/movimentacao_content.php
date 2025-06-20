@@ -124,7 +124,7 @@ $entregas_finalizadas = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h5 class="card-title">Total em Taxas</h5>
-                            <h3>R$ <?php echo number_format($stats['total_taxas'], 2, ',', '.'); ?></h3>
+                            <h3>R$ <?php echo number_format((float)($stats['total_taxas'] ?? 0), 2, ',', '.'); ?></h3>
                         </div>
                         <i class="fas fa-dollar-sign fa-2x opacity-50"></i>
                     </div>
