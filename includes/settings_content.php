@@ -1482,7 +1482,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     clienteModal = new bootstrap.Modal(document.getElementById('clienteModal'));
-    aplicarMascaraTelefone(document.getElementById('clienteTelefone'));
+    const telefoneInput = document.getElementById('clienteTelefone');
+    aplicarMascaraTelefone(telefoneInput);
+
+    document.getElementById('clienteModal').addEventListener('shown.bs.modal', () => {
+        telefoneInput.dispatchEvent(new Event('input'));
+        document.getElementById('clienteNome').focus();
+    });
 });
 
 function editarCliente(id) {
