@@ -32,9 +32,9 @@ try {
         throw new Exception('Entregador não encontrado');
     }
 
-    if ($entregador['status'] !== 'Ativo') {
-        throw new Exception('Entregador não está disponível');
-    }
+  //  if ($entregador['status'] !== 'Ativo') {
+   //     throw new Exception('Entregador não está disponível');
+ //   }
 
     // Atualizar status do entregador
     $stmt = $conn->prepare("UPDATE entregadores SET status = 'Em Entrega' WHERE id = ?");
