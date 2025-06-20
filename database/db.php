@@ -2,10 +2,12 @@
 // Definir fuso horário para Brasil
 date_default_timezone_set('America/Sao_Paulo');
 
-$servername = "chatbot_mysql";
-$username = "deliverypro";
-$password = "C@104rm0nd1994";
-$dbname = "deliverypro";
+require_once __DIR__ . '/../load_env.php';
+
+$servername = getenv('DB_HOST') ?: 'localhost';
+$username   = getenv('DB_USER') ?: 'user';
+$password   = getenv('DB_PASS') ?: '';
+$dbname     = getenv('DB_NAME') ?: 'database';
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
