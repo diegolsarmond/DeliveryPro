@@ -207,9 +207,9 @@ if (!$data_pedido) {
 
         <!-- Totais -->
         <div class="total">
-            Sub-total: R$ <?php echo number_format(floatval(str_replace(['R$', ' '], '', $pedido['sub_total'])), 2, ',', '.'); ?><br>
-            Taxa de entrega: R$ <?php echo number_format(floatval(str_replace(['R$', ' '], '', $pedido['taxa_entrega'])), 2, ',', '.'); ?><br>
-            <strong>TOTAL: R$ <?php echo number_format(floatval(str_replace(['R$', ' '], '', $pedido['total'])), 2, ',', '.'); ?></strong><br>
+            Sub-total: R$ <?php echo number_format(floatval(str_replace(['R$', ' '], '', $pedido['sub_total'] ?? '')), 2, ',', '.'); ?><br>
+            Taxa de entrega: R$ <?php echo number_format(floatval(str_replace(['R$', ' '], '', $pedido['taxa_entrega'] ?? '')), 2, ',', '.'); ?><br>
+            <strong>TOTAL: R$ <?php echo number_format(floatval(str_replace(['R$', ' '], '', $pedido['total'] ?? '')), 2, ',', '.'); ?></strong><br>
             Forma de pagamento: <?php echo $pedido['pagamento']; ?>
         </div>
 
