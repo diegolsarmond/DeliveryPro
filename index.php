@@ -98,10 +98,7 @@ $config = json_decode(file_get_contents('customizacao.json'), true);
     <link href="css/tooltips.css" rel="stylesheet">
     <link href="css/sidebar.css" rel="stylesheet">
     <link href="css/preloader.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <?php include 'includes/apply_customization.php'; ?>
-    <!-- Bootstrap JS Bundle (inclui Popper) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
     <style>
