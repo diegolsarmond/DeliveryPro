@@ -220,7 +220,10 @@ class EvolutionInstance {
                     $ownerJid = $apiInstance['ownerJid'] ?? '';
                     $connectionStatus = $apiInstance['connectionStatus'] ?? '';
                     $disconnectionReason = $apiInstance['disconnectionReasonCode'] ?? '';
-                    $disconnectedAt = $apiInstance['disconnectionAt'] ?? '';
+                    $disconnectedAt = $apiInstance['disconnectionAt'] ?? null;
+                    if ($disconnectedAt === '') {
+                        $disconnectedAt = null;
+                    }
                     $instanceName = $apiInstance['name'] ?? '';
 
                     if (!empty($instanceName)) {
