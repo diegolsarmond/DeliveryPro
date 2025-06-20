@@ -86,7 +86,8 @@
     });
   };
 
-  document.addEventListener('DOMContentLoaded', () => {
+  function initClienteModal() {
+    if (clienteModal) return;
     clienteModal = new bootstrap.Modal(document.getElementById('clienteModal'));
     const telefoneInput = document.getElementById('clienteTelefone');
     aplicarMascaraTelefone(telefoneInput);
@@ -120,5 +121,11 @@
           Swal.fire({ icon: 'error', title: 'Erro!', text: error.message });
         });
     });
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initClienteModal);
+  } else {
+    initClienteModal();
+  }
 })();
