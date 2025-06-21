@@ -26,10 +26,24 @@ function generateJwt(int $userId, string $username, string $secret): string {
     return "$header.$payload.$signature";
 }
 
+function ensureUserTokensTableExists(mysqli $conn): void {
+    $sql = "CREATE TABLE IF NOT EXISTS user_tokens (
+        user_id INT(11) NOT NULL,
+        token VARCHAR(255) NOT NULL,
+        expires_at DATETIME NOT NULL,
+        PRIMARY KEY (user_id),
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;";
+    $conn->query($sql);
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header('Content-Type: application/json');
     $username = $_POST['username'];
     $password = $_POST['password'];
+
+    // Garantir que a tabela de tokens exista para evitar erros de login
+    ensureUserTokensTableExists($conn);
 
    
 
