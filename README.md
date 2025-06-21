@@ -38,6 +38,10 @@ php -S localhost:8000
 
 3. Open `http://localhost:8000/` in your browser and log in using your user credentials.
 
+On the first login the application automatically creates the `user_tokens` table
+used to store authentication tokens. Ensure your database user has permission to
+create tables.
+
 ## Authenticating with a Bearer Token
 
 Most API endpoints expect a JWT token in the `Authorization` header. To obtain
