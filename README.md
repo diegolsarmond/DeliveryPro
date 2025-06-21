@@ -38,6 +38,31 @@ php -S localhost:8000
 
 3. Open `http://localhost:8000/` in your browser and log in using your user credentials.
 
+## Authenticating with a Bearer Token
+
+Most API endpoints expect a JWT token in the `Authorization` header. To obtain
+the token, send a `POST` request to `login/index.php` with the fields
+`username` and `password`:
+
+```bash
+curl -X POST http://localhost:8000/login/index.php \
+     -d "username=myuser" -d "password=mypass"
+```
+
+The response will include a JSON object with a `token` field. Provide this token
+when calling protected endpoints:
+
+```bash
+curl -H "Authorization: Bearer YOUR_TOKEN" \
+     http://localhost:8000/api.php/algum-endpoint
+```
+
+Before issuing tokens, create the `user_tokens` table by running:
+
+```bash
+php ajax/create_tokens_table.php
+```
+
 ## Folder Overview
 
 - **ajax/** – PHP endpoints accessed via AJAX for actions such as managing
