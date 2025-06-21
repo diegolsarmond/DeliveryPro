@@ -57,21 +57,4 @@ curl -H "Authorization: Bearer YOUR_TOKEN" \
      http://localhost:8000/api.php/algum-endpoint
 ```
 
-Before issuing tokens, create the `user_tokens` table by running:
-
-```bash
-php ajax/create_tokens_table.php
-```
-
-## Folder Overview
-
-- **ajax/** – PHP endpoints accessed via AJAX for actions such as managing
-  orders, products and settings.
-- **classes/** – Core PHP classes that interact with external services and
-  implement the application logic.
-- **includes/** – Reusable page fragments that compose the main interfaces of
-  the application.
-
-Additional folders like `assets/`, `css/`, `database/` and others contain
-static resources and auxiliary scripts used by the system.
 
