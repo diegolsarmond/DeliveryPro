@@ -4,7 +4,7 @@ date_default_timezone_set('America/Sao_Paulo');
 
 require_once __DIR__ . '/../load_env.php';
 
-$servername = getenv('DB_HOST') ?: 'chatbot_mysql';
+$servername = getenv('DB_HOST') ?: 'quantumtecnologia_mysql';
 $username   = getenv('DB_USER') ?: 'deliverypro';
 $password   = getenv('DB_PASS') ?: 'C@104rm0nd1994';
 $dbname     = getenv('DB_NAME') ?: 'deliverypro';
