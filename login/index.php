@@ -2,6 +2,30 @@
 session_start();
 include '../database/db.php';
 
+function base64UrlEncode(string $data): string {
+    return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
+}
+
+function getSecretKey(mysqli $conn): string {
+    $result = $conn->query("SELECT chave_secreta FROM license_codes WHERE is_active = 1 ORDER BY id DESC LIMIT 1");
+    if ($result && ($row = $result->fetch_assoc()) && !empty($row['chave_secreta'])) {
+        return $row['chave_secreta'];
+    }
+    return 'packtypebot';
+}
+
+function generateJwt(int $userId, string $username, string $secret): string {
+    $header  = base64UrlEncode(json_encode(['typ' => 'JWT', 'alg' => 'HS256']));
+    $payload = base64UrlEncode(json_encode([
+        'sub'      => $userId,
+        'username' => $username,
+        'iat'      => time(),
+        'exp'      => time() + 3600
+    ]));
+    $signature = base64UrlEncode(hash_hmac('sha256', "$header.$payload", $secret, true));
+    return "$header.$payload.$signature";
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     header('Content-Type: application/json');
     $username = $_POST['username'];
@@ -19,7 +43,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $row = $result->fetch_assoc();
         if (password_verify($password, $row['password'])) {
             $_SESSION['user_id'] = $row['id'];
-            echo json_encode(['success' => true]);
+            $secret = getSecretKey($conn);
+            $token  = generateJwt($row['id'], $username, $secret);
+            echo json_encode(['success' => true, 'token' => $token]);
         } else {
             echo json_encode(['success' => false, 'message' => 'Senha incorreta']);
         }
