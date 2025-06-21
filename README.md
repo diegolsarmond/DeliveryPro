@@ -57,15 +57,4 @@ curl -H "Authorization: Bearer YOUR_TOKEN" \
      http://localhost:8000/api.php/algum-endpoint
 ```
 
-## Folder Overview
-
-- **ajax/** – PHP endpoints accessed via AJAX for actions such as managing
-  orders, products and settings.
-- **classes/** – Core PHP classes that interact with external services and
-  implement the application logic.
-- **includes/** – Reusable page fragments that compose the main interfaces of
-  the application.
-
-Additional folders like `assets/`, `css/`, `database/` and others contain
-static resources and auxiliary scripts used by the system.
 

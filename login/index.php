@@ -45,6 +45,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['user_id'] = $row['id'];
             $secret = getSecretKey($conn);
             $token  = generateJwt($row['id'], $username, $secret);
+            $stmt = $conn->prepare("REPLACE INTO user_tokens (user_id, token, expires_at) VALUES (?, ?, DATE_ADD(NOW(), INTERVAL 1 HOUR))");
+            $stmt->bind_param("is", $row['id'], $token);
+            $stmt->execute();
             echo json_encode(['success' => true, 'token' => $token]);
         } else {
             echo json_encode(['success' => false, 'message' => 'Senha incorreta']);

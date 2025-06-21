@@ -5589,6 +5589,32 @@ namespace PackTypebot\DeliveryPro\Middleware {
             }
         }
 
+        private function tokenRegistrado(int $userId, string $token): bool {
+            try {
+                $config = require __DIR__ . '/config.php';
+                $dsn = sprintf(
+                    "%s:host=%s;dbname=%s;charset=%s",
+                    $config['database']['driver'],
+                    $config['database']['host'],
+                    $config['database']['dbname'],
+                    $config['database']['charset']
+                );
+                $pdo = new \PDO(
+                    $dsn,
+                    $config['database']['username'],
+                    $config['database']['password']
+                );
+                $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+                $stmt = $pdo->prepare("SELECT token FROM user_tokens WHERE user_id = ? AND expires_at > NOW()");
+                $stmt->execute([$userId]);
+                $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+                return $row && $row['token'] === $token;
+            } catch (\Exception $e) {
+                error_log("[ERROR] Erro ao verificar token: " . $e->getMessage());
+                return false;
+            }
+        }
+
         private function base64UrlDecode($input) {
             $remainder = strlen($input) % 4;
             if ($remainder) {
@@ -5648,6 +5674,11 @@ namespace PackTypebot\DeliveryPro\Middleware {
 
                 if ($decodedPayload['exp'] < time()) {
                     return $this->responder->error(ErrorCode::AUTHENTICATION_FAILED, 'Token expirado.');
+                }
+
+                $userId = isset($decodedPayload['sub']) ? (int)$decodedPayload['sub'] : 0;
+                if (!$userId || !$this->tokenRegistrado($userId, $token)) {
+                    return $this->responder->error(ErrorCode::AUTHENTICATION_FAILED, 'Token não registrado.');
                 }
 
                 $_SESSION['token'] = $token;
